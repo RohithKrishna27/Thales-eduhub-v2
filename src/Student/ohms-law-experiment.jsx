@@ -6,12 +6,15 @@ import { doc, updateDoc, arrayUnion, increment,getDoc  } from 'firebase/firestor
 import { useAuthState } from 'react-firebase-hooks/auth'; 
 import { useLanguage } from '../LanguageContext';
 import LanguageSwitcher from '../components/LanguageSwitcher';
+import useTTS from '../hooks/useTTS';
+import TTSButton from '../components/TTSButton';
 
 
 
 // Main App component for the Ohm's Law Interactive Lab
 const App = () => {
   const { t } = useLanguage();
+  const { speak, stopSpeech, pauseSpeech, resumeSpeech, isSpeaking, isPaused } = useTTS();
   // State for circuit components
   const [circuitVoltage, setCircuitVoltage] = useState(6);
   const [rheostatResistance, setRheostatResistance] = useState(100);
@@ -477,7 +480,19 @@ const addToTable = async () => {
 
             {/* Instructions */}
             <div className="bg-blue-50 p-6 rounded-xl shadow-md border border-blue-200">
-              <h2 className="text-2xl font-bold text-blue-800 mb-4">{t('🔬 Assembly Steps (Drag & Drop Components)', '🔬 ಜೋಡಣೆ ಹಂತಗಳು (ಡ್ರ್ಯಾಗ್ & ಡ್ರಾಪ್)')}</h2>
+              <div className="flex items-center gap-3 mb-4">
+                <h2 className="text-2xl font-bold text-blue-800">{t('🔬 Assembly Steps (Drag & Drop Components)', '🔬 ಜೋಡಣೆ ಹಂತಗಳು (ಡ್ರ್ಯಾಗ್ & ಡ್ರಾಪ್)')}</h2>
+                <TTSButton
+                  text="1. Drag the Battery into its slot. 2. Drag the Switch into its slot. 3. Drag the Rheostat into its slot. 4. Drag the Fixed Resistor into its slot. 5. Drag the Ammeter into its slot. 6. The Voltmeter will automatically connect once the resistor is placed."
+                  speak={speak}
+                  stopSpeech={stopSpeech}
+                  pauseSpeech={pauseSpeech}
+                  resumeSpeech={resumeSpeech}
+                  isSpeaking={isSpeaking}
+                  isPaused={isPaused}
+                  buttonSize="md"
+                />
+              </div>
               <ol className="list-decimal list-inside space-y-2 text-gray-700 font-semibold">
                 <li>Drag the **Battery** into its slot.</li>
                 <li>Drag the **Switch** into its slot.</li>

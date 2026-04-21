@@ -5,10 +5,11 @@ import { db, auth } from '../firebase';
 import { doc, updateDoc, arrayUnion, increment, getDoc } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useLanguage } from '../LanguageContext';
-import LanguageSwitcher from '../components/LanguageSwitcher';
-
+import LanguageSwitcher from '../components/LanguageSwitcher';import useTTS from '../hooks/useTTS';
+import TTSButton from '../components/TTSButton';
 const App = () => {
   const { t } = useLanguage();
+  const { speak, stopSpeech, pauseSpeech, resumeSpeech, isSpeaking, isPaused } = useTTS();
   // Crystallization state
   const [temperature, setTemperature] = useState(25); // Celsius
   const [heatingActive, setHeatingActive] = useState(false);
@@ -512,7 +513,19 @@ const App = () => {
 
             {/* Instructions */}
             <div className="bg-cyan-50 p-6 rounded-xl shadow-md border border-cyan-200">
-              <h2 className="text-2xl font-bold text-cyan-800 mb-4">📋 Procedure</h2>
+              <div className="flex items-center gap-3 mb-4">
+                <h2 className="text-2xl font-bold text-cyan-800">📋 Procedure</h2>
+                <TTSButton
+                  text="1. Place the Tripod Stand and Wire Gauze. 2. Position the Beaker on the wire gauze. 3. Place the Bunsen Burner below. 4. Add Salt and Stirring Rod. 5. Heat the solution until salt dissolves completely. 6. Cool the solution slowly to observe crystallization. 7. Record observations at different stages."
+                  speak={speak}
+                  stopSpeech={stopSpeech}
+                  pauseSpeech={pauseSpeech}
+                  resumeSpeech={resumeSpeech}
+                  isSpeaking={isSpeaking}
+                  isPaused={isPaused}
+                  buttonSize="md"
+                />
+              </div>
               <ol className="list-decimal list-inside space-y-2 text-gray-700 font-semibold">
                 <li>Place the <strong>Tripod Stand</strong> and <strong>Wire Gauze</strong></li>
                 <li>Position the <strong>Beaker</strong> on the wire gauze</li>

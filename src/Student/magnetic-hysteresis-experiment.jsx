@@ -6,6 +6,8 @@ import { doc, updateDoc, increment, getDoc } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useLanguage } from '../LanguageContext';
 import LanguageSwitcher from '../components/LanguageSwitcher';
+import useTTS from '../hooks/useTTS';
+import TTSButton from '../components/TTSButton';
 
 // --- Material Data for Hysteresis Simulation (Integrated) ---
 const materials = {
@@ -488,7 +490,19 @@ const togglePower = async () => {
 
             {/* Instructions */}
             <div className="bg-blue-50 p-6 rounded-xl shadow-md border border-blue-200">
-              <h2 className="text-2xl font-bold text-blue-800 mb-4">{t('🔬 Assembly Steps (Drag & Drop Components)', '🔬 ಜೋಡಣೆ ಹಂತಗಳು (ಡ್ರ್ಯಾಗ್ & ಡ್ರಾಪ್)')}</h2>
+              <div className="flex items-center gap-3 mb-4">
+                <h2 className="text-2xl font-bold text-blue-800">{t('🔬 Assembly Steps (Drag & Drop Components)', '🔬 ಜೋಡಣೆ ಹಂತಗಳು (ಡ್ರ್ಯಾಗ್ & ಡ್ರಾಪ್)')}</h2>
+                <TTSButton
+                  text="1. Drag the AC Source into its slot. 2. Drag the Solenoid with Sample into its slot. 3. Drag the Pickup Coil into its slot. 4. Drag the Integrator Circuit into its slot. 5. Drag the Oscilloscope into its slot."
+                  speak={speak}
+                  stopSpeech={stopSpeech}
+                  pauseSpeech={pauseSpeech}
+                  resumeSpeech={resumeSpeech}
+                  isSpeaking={isSpeaking}
+                  isPaused={isPaused}
+                  buttonSize="md"
+                />
+              </div>
               <ol className="list-decimal list-inside space-y-2 text-gray-700 font-semibold">
                 <li>Drag the **AC Source** into its slot.</li>
                 <li>Drag the **Solenoid with Sample** into its slot.</li>

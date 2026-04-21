@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import useTTS from '../../hooks/useTTS';
+import TTSButton from '../../components/TTSButton';
 
 // ─── helpers ────────────────────────────────────────────────────────────────
 const clamp = (v, mn, mx) => Math.max(mn, Math.min(mx, v));
@@ -94,8 +96,18 @@ function StepTrack({ state, metrics }) {
 
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8, gap: 8 }}>
         <SectionLabel color="#3B82F6">mission objectives</SectionLabel>
+        <TTSButton
+          text="Achieve 70% legitimate traffic while blocking attack. Maintain service level above 85%. Reduce cost per gigabit below 10 thousand. Apply defense faster than attack escalates."
+          speak={speak}
+          stopSpeech={stopSpeech}
+          pauseSpeech={pauseSpeech}
+          resumeSpeech={resumeSpeech}
+          isSpeaking={isSpeaking}
+          isPaused={isPaused}
+          buttonSize="sm"
+        />
         <span style={{ fontFamily: "'Share Tech Mono',monospace", fontSize: 10, color: "#3B82F6" }}>{stepsDone.size}/{STEPS.length}</span>
       </div>
       <div style={{ height: 4, background: "#E2E8F0", borderRadius: 2, marginBottom: 12, overflow: "hidden" }}>
@@ -413,6 +425,7 @@ function SuccessModal({ metrics, onRestart }) {
 // ─── main component ──────────────────────────────────────────────────────────
 
 export default function ThalesDDoSSimulation() {
+  const { speak, stopSpeech, pauseSpeech, resumeSpeech, isSpeaking, isPaused } = useTTS();
   const [state, setState] = useState({ legitTraffic: 55, attackVolume: 45, patchLevel: 40, rateLimit: 35 });
   const [bwHistory, setBwHistory] = useState(() => Array(20).fill(30));
   const [logs, setLogs] = useState([

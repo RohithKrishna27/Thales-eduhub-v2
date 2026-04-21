@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduHub Assistant - Team P.O.V</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap');
+        
+        :root {
+            --bg: #f0f4f8;
+            --white: #ffffff;
+            --text: #1a2332;
+            --text2: #5a6a7e;
+            --border: #e2e8f0;
+            --shadow: 0 2px 12px rgba(0,0,0,0.08);
+            --primary: #4facfe;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #f8fafc; font-family: 'DM Sans', sans-serif; overflow: hidden; }
+
+        .app {
+            width: 100%; max-width: 480px; height: 100vh; background: var(--white);
+            display: flex; flex-direction: column; overflow: hidden;
+            box-shadow: 0 0 40px rgba(0,0,0,0.12); margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 20px 18px 14px; flex-shrink: 0; color: white;
+        }
+
+        .header-top { display: flex; align-items: center; justify-content: space-between; }
+        .logo { display: flex; align-items: center; gap: 8px; }
+        .logo-icon { width: 32px; height: 32px; background: rgba(255,255,255,0.25); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+        .logo-text { font-size: 1.1rem; font-weight: 600; }
+        
+        .status-badge { font-size: 0.7rem; background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 10px; display: flex; align-items: center; gap: 4px; }
+        .status-dot { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; }
+
+        .messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 16px; background: var(--bg); }
+        .msg { display: flex; max-width: 90%; animation: fadeUp 0.25s ease-out; position: relative; flex-direction: column; }
+        .msg.bot { align-self: flex-start; align-items: flex-start; }
+        .msg.user { align-self: flex-end; align-items: flex-end; }
+        
+        .bubble { padding: 10px 14px; border-radius: 16px; font-size: 0.9rem; line-height: 1.55; box-shadow: var(--shadow); position: relative; word-wrap: break-word; }
+        .msg.bot .bubble { background: var(--white); border-bottom-left-radius: 4px; border: 1px solid var(--border); color: var(--text); }
+        .msg.user .bubble { background: linear-gradient(135deg, #4facfe, #00f2fe); color: #fff; border-bottom-right-radius: 4px; }
+        
+        .speak-btn {
+            background: #f1f5f9; border: 1px solid var(--border); border-radius: 50%;
+            width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-size: 14px; margin-top: 4px; transition: 0.2s;
+        }
+        .speak-btn:hover { background: #e2e8f0; }
+        .speak-btn.playing { background: #4facfe; color: white; animation: breathe 1.5s infinite; }
+
+        .msg-img { max-width: 100%; border-radius: 12px; margin-bottom: 6px; display: block; border: 2px solid white; box-shadow: var(--shadow); }
+
+        .footer { background: var(--white); border-top: 1px solid var(--border); padding: 10px 12px; }
+        .input-row { display: flex; align-items: flex-end; gap: 7px; background: #f8fafc; border: 1px solid var(--border); border-radius: 20px; padding: 6px 8px 6px 14px; }
+        textarea { flex: 1; border: none; background: transparent; outline: none; resize: none; font-size: 0.92rem; min-height: 24px; max-height: 120px; padding: 4px 0; font-family: inherit; }
+        
+        .ibtn { width: 34px; height: 34px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: 0.2s; background: #e2e8f0; color: var(--text2); }
+        .sendbtn { background: linear-gradient(135deg, #4facfe, #00f2fe); color: #fff; }
+        .micbtn.active { background: #ef4444; color: #fff; animation: pulse 1.4s infinite; }
+
+        #editorModal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 1000; display: none;
+            flex-direction: column; align-items: center; justify-content: center; padding: 20px;
+        }
+        .canvas-container { position: relative; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        #canvas { cursor: crosshair; display: block; touch-action: none; background: #000; }
+        .editor-tools { display: flex; gap: 10px; margin-top: 20px; background: #1a1a1a; padding: 12px 20px; border-radius: 30px; }
+        .tool { color: white; cursor: pointer; padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; background: #333; transition: 0.2s; }
+        .tool.active { background: var(--primary); }
+
+        .err-banner { background: #fef2f2; color: #dc2626; font-size: 0.76rem; padding: 8px 12px; border-radius: 8px; margin-bottom: 8px; border: 1px solid #fecaca; display: none; }
+
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
+        @keyframes breathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    </style>
+</head>
+<body>
+
+<div class="app">
+    <div class="header">
+        <div class="header-top">
+            <div class="logo"><div class="logo-icon">🧪</div><div class="logo-text">EduHub Assistant</div></div>
+            <div class="status-badge"><div class="status-dot"></div>Team P.O.V</div>
+        </div>
+    </div>
+
+    <div class="messages" id="msgs"></div>
+
+    <div class="footer">
+        <div class="err-banner" id="errBanner"></div>
+        <div class="input-row">
+            <input type="file" id="fileInp" hidden accept="image/*" onchange="handleFileUpload(event)">
+            <button class="ibtn" onclick="document.getElementById('fileInp').click()" title="Lab Photo">🖼️</button>
+            <textarea id="inp" placeholder="Ask about your experiment..." rows="1" oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+            <button class="ibtn micbtn" id="micBtn" onclick="toggleVoice()">🎤</button>
+            <button class="ibtn sendbtn" onclick="send()">🚀</button>
+        </div>
+    </div>
+</div>
+
+<div id="editorModal">
+    <div class="canvas-container"><canvas id="canvas"></canvas></div>
+    <div class="editor-tools">
+        <div class="tool active" onclick="setTool('pen')" id="tool-pen">✏️ Pen</div>
+        <div class="tool" onclick="setTool('highlighter')" id="tool-hl">🖍️ Highlighter</div>
+        <div class="tool" style="color: #ff4d4d;" onclick="closeEditor()">❌ Cancel</div>
+        <div class="tool" style="color: #4facfe; font-weight: 600;" onclick="finishEditing()">✅ Analyze</div>
+    </div>
+</div>
+
+<script>
+// Empty string for environment runtime injection
+const apiKey = ""; 
+// Updated to gemini-flash-latest as per the curl request
+const TEXT_MODEL = "gemini-flash-latest"; 
+const TTS_MODEL = "gemini-2.5-flash-preview-tts";
+
+const SYSTEM_PROMPT = `You are the EduHub Assistant by Team P.O.V (Rohith, Goutham, Srichirajaya). 
+Help students with science lab experiments. When provided with an image (possibly annotated), explain the setup, the chemical/physical principles involved, and suggest safety precautions.
+Keep answers structured, professional yet encouraging. End with a "Pro Tip" for the lab. Use emojis!`;
+
+const msgsEl = document.getElementById('msgs');
+const inpEl = document.getElementById('inp');
+const errBanner = document.getElementById('errBanner');
+const editorModal = document.getElementById('editorModal');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+let isDrawing = false, currentTool = 'pen', baseImg = null;
+let currentAudio = null;
+
+// --- IMAGE EDITOR LOGIC ---
+function handleFileUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+        baseImg = new Image();
+        baseImg.onload = () => {
+            const maxWidth = window.innerWidth * 0.85;
+            const maxHeight = window.innerHeight * 0.7;
+            let width = baseImg.width;
+            let height = baseImg.height;
+
+            if (width > maxWidth) {
+                height *= maxWidth / width;
+                width = maxWidth;
+            }
+            if (height > maxHeight) {
+                width *= maxHeight / height;
+                height = maxHeight;
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            ctx.drawImage(baseImg, 0, 0, width, height);
+            editorModal.style.display = 'flex';
+        };
+        baseImg.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+function setTool(t) {
+    currentTool = t;
+    document.querySelectorAll('.tool').forEach(el => el.classList.remove('active'));
+    document.getElementById(t === 'pen' ? 'tool-pen' : 'tool-hl').classList.add('active');
+}
+
+function getCoords(e) {
+    const rect = canvas.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    return {
+        x: (clientX - rect.left),
+        y: (clientY - rect.top)
+    };
+}
+
+const startDraw = (e) => {
+    isDrawing = true;
+    const {x, y} = getCoords(e);
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+};
+
+const draw = (e) => {
+    if (!isDrawing) return;
+    const {x, y} = getCoords(e);
+    ctx.lineWidth = currentTool === 'pen' ? 3 : 25;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = currentTool === 'pen' ? '#ff3b30' : 'rgba(255, 232, 0, 0.4)';
+    ctx.lineTo(x, y);
+    ctx.stroke();
+};
+
+canvas.onmousedown = startDraw;
+canvas.onmousemove = draw;
+window.onmouseup = () => isDrawing = false;
+canvas.ontouchstart = (e) => { e.preventDefault(); startDraw(e); };
+canvas.ontouchmove = (e) => { e.preventDefault(); draw(e); };
+canvas.ontouchend = () => isDrawing = false;
+
+function closeEditor() { editorModal.style.display = 'none'; document.getElementById('fileInp').value = ''; }
+
+function finishEditing() {
+    const dataUrl = canvas.toDataURL('image/png');
+    closeEditor();
+    send(dataUrl);
+}
+
+// --- API HANDLING ---
+async function fetchWithRetry(url, opts, retries = 5) {
+    const delays = [1000, 2000, 4000, 8000, 16000];
+    for (let i = 0; i < retries; i++) {
+        try {
+            const res = await fetch(url, opts);
+            if (res.ok) return res;
+            if (res.status === 404 || res.status === 400) return res;
+        } catch (e) {
+            if (i === retries - 1) throw e;
+        }
+        await new Promise(r => setTimeout(r, delays[i]));
+    }
+    return fetch(url, opts);
+}
+
+async function callGemini(text, b64Img = null) {
+    // API endpoint for flash-latest
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${TEXT_MODEL}:generateContent?key=${apiKey}`;
+    
+    const contents = [{
+        parts: [{ text }]
+    }];
+    
+    if (b64Img) {
+        contents[0].parts.push({
+            inlineData: {
+                mimeType: "image/png",
+                data: b64Img.split(',')[1]
+            }
+        });
+    }
+
+    try {
+        const res = await fetchWithRetry(url, {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'X-goog-api-key': apiKey // Included header as per curl example
+            },
+            body: JSON.stringify({ 
+                contents, 
+                systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] } 
+            })
+        });
+        
+        if (!res.ok) {
+            const errorData = await res.json().catch(() => ({}));
+            throw new Error(errorData.error?.message || `API Error: ${res.status}`);
+        }
+
+        const data = await res.json();
+        return data.candidates?.[0]?.content?.parts?.[0]?.text || "I'm processing that... 🧪";
+    } catch (e) {
+        throw e;
+    }
+}
+
+// --- TTS INTEGRATION ---
+async function speak(text, btn) {
+    if (currentAudio) {
+        currentAudio.pause();
+        document.querySelectorAll('.speak-btn').forEach(b => b.classList.remove('playing'));
+        if (currentAudio.src_text === text) {
+            currentAudio = null;
+            return;
+        }
+    }
+
+    btn.classList.add('playing');
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${TTS_MODEL}:generateContent?key=${apiKey}`;
+    try {
+        const res = await fetchWithRetry(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text }] }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } } }
+                }
+            })
+        });
+        
+        const data = await res.json();
+        const b64 = data.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+        if (!b64) throw new Error("Audio not found");
+
+        const binary = atob(b64);
+        const samples = new Int16Array(binary.length / 2);
+        for (let i = 0; i < binary.length; i += 2) {
+            samples[i/2] = (binary.charCodeAt(i+1) << 8) | binary.charCodeAt(i);
+        }
+        
+        const wav = createWav(samples, 24000);
+        currentAudio = new Audio(URL.createObjectURL(wav));
+        currentAudio.src_text = text;
+        currentAudio.onended = () => btn.classList.remove('playing');
+        currentAudio.play();
+    } catch (e) {
+        btn.classList.remove('playing');
+        showErr("Speech service currently unavailable.");
+    }
+}
+
+function createWav(samples, rate) {
+    const buf = new ArrayBuffer(44 + samples.length * 2);
+    const v = new DataView(buf);
+    const s = (o, str) => { for (let i = 0; i < str.length; i++) v.setUint8(o + i, str.charCodeAt(i)); };
+    s(0, 'RIFF'); v.setUint32(4, 32 + samples.length * 2, true);
+    s(8, 'WAVE'); s(12, 'fmt '); v.setUint32(16, 16, true);
+    v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+    v.setUint32(24, rate, true); v.setUint32(28, rate * 2, true);
+    v.setUint16(32, 2, true); v.setUint16(34, 16, true);
+    s(36, 'data'); v.setUint32(40, samples.length * 2, true);
+    for (let i = 0; i < samples.length; i++) v.setInt16(44 + i * 2, samples[i], true);
+    return new Blob([v], { type: 'audio/wav' });
+}
+
+// --- UI LOGIC ---
+function addMsg(text, isUser, img = null) {
+    const d = document.createElement('div');
+    d.className = 'msg ' + (isUser ? 'user' : 'bot');
+    
+    let content = '';
+    if (img) content += `<img src="${img}" class="msg-img">`;
+    content += `<div class="bubble">${text.replace(/\n/g, '<br>')}</div>`;
+    
+    if (!isUser) {
+        const escaped = text.replace(/`/g, '\\`').replace(/\$/g, '\\$').replace(/"/g, '&quot;');
+        content += `<button class="speak-btn" title="Read Aloud" onclick="speak(\`${escaped}\`, this)">🔊</button>`;
+    }
+    
+    d.innerHTML = content;
+    msgsEl.appendChild(d);
+    msgsEl.scrollTop = msgsEl.scrollHeight;
+}
+
+async function send(imgData = null) {
+    const text = inpEl.value.trim() || (imgData ? "Analyze this lab setup." : "");
+    if (!text && !imgData) return;
+    
+    inpEl.value = '';
+    inpEl.style.height = 'auto';
+    addMsg(text, true, imgData);
+
+    try {
+        const reply = await callGemini(text, imgData);
+        addMsg(reply, false);
+    } catch (e) {
+        showErr("Connection Error: " + e.message);
+        addMsg("Connection failed! Please verify the model and API configuration. 🧪", false);
+    }
+}
+
+function showErr(m) { 
+    errBanner.textContent = m; 
+    errBanner.style.display = 'block'; 
+    setTimeout(() => errBanner.style.display = 'none', 8000); 
+}
+
+function toggleVoice() {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) return showErr("Speech recognition not supported.");
+    const rec = new SR();
+    rec.onstart = () => document.getElementById('micBtn').classList.add('active');
+    rec.onresult = (e) => { inpEl.value = e.results[0][0].transcript; send(); };
+    rec.onend = () => document.getElementById('micBtn').classList.remove('active');
+    rec.start();
+}
+
+window.onload = () => {
+    addMsg("Hello! 👋 EduHub Assistant is ready. Using the textbook and lab materials. 🧪", false);
+};
+</script>
+</body>
+</html>

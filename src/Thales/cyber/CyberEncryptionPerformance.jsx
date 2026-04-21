@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import useTTS from '../../hooks/useTTS';
+import TTSButton from '../../components/TTSButton';
 
 const clamp = (v, mn, mx) => Math.max(mn, Math.min(mx, v));
 
@@ -100,8 +102,18 @@ function StepTrack({ state, metrics }) {
 
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8, gap: 8 }}>
         <SectionLabel color="#3B82F6">mission objectives</SectionLabel>
+        <TTSButton
+          text="Encrypt data with key length at least 128 bits. Ensure brute force attack time exceeds one year. Maximize encryption throughput above 15 gigabits per second. Reduce CPU load below 50 percent."
+          speak={speak}
+          stopSpeech={stopSpeech}
+          pauseSpeech={pauseSpeech}
+          resumeSpeech={resumeSpeech}
+          isSpeaking={isSpeaking}
+          isPaused={isPaused}
+          buttonSize="sm"
+        />
         <span style={{ fontFamily: "'Share Tech Mono',monospace", fontSize: 10, color: "#3B82F6" }}>{stepsDone.size}/{STEPS.length}</span>
       </div>
       <div style={{ height: 4, background: "#E2E8F0", borderRadius: 2, marginBottom: 12, overflow: "hidden" }}>
@@ -354,6 +366,7 @@ function SuccessModal({ metrics, state, onRestart }) {
 
 // ─── main ─────────────────────────────────────────────────────────────────────
 export default function ThalesEncryptionPerformance() {
+  const { speak, stopSpeech, pauseSpeech, resumeSpeech, isSpeaking, isPaused } = useTTS();
   const [state, setState] = useState({ bits: 128, trafficLoad: 40 });
   const [cpuHistory, setCpuHistory] = useState(() => Array(20).fill(30));
   const [logs, setLogs] = useState([

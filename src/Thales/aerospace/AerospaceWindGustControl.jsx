@@ -1,4 +1,6 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
+import useTTS from '../../hooks/useTTS';
+import TTSButton from '../../components/TTSButton';
 
 const clamp = (v, mn, mx) => Math.max(mn, Math.min(mx, v));
 
@@ -182,6 +184,7 @@ function Slider({ label, value, min, max, step = 1, onChange, unit = '' }) {
 
 /* ── MAIN COMPONENT ── */
 export default function AerospaceWindGustControl() {
+  const { speak, stopSpeech, pauseSpeech, resumeSpeech, isSpeaking, isPaused } = useTTS();
   const [gust, setGust] = useState(35);
   const [elevator, setElevator] = useState(0);
   const [aileron, setAileron] = useState(0);
@@ -333,7 +336,19 @@ export default function AerospaceWindGustControl() {
           <div style={{ padding: 14, display: 'flex', flexDirection: 'column', gap: 10, borderRight: '1px solid #e0e8f0' }}>
 
             {/* Steps */}
-            <SectionLabel>Mission Objectives</SectionLabel>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <SectionLabel>Mission Objectives</SectionLabel>
+              <TTSButton
+                text="Spike gust above 50 knots. Apply elevator positive 10 degrees or more. Coordinate aileron plus or minus 15 degrees or more."
+                speak={speak}
+                stopSpeech={stopSpeech}
+                pauseSpeech={pauseSpeech}
+                resumeSpeech={resumeSpeech}
+                isSpeaking={isSpeaking}
+                isPaused={isPaused}
+                buttonSize="sm"
+              />
+            </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
               {STEPS.map((s, i) => (
                 <div key={s.id} style={{

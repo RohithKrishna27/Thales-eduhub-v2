@@ -18,6 +18,7 @@ import Photosynthesis from './Student/photosynthesis-experiment';
 import Statistics from './Student/statistics-data-analysis'; 
 import MagneticHysteresisExperiment from './Student/magnetic-hysteresis-experiment'; // Import the Magnetic Hysteresis Experiment component
 import ClippingClampingExperiment from './Student/clipping-clamping-experiment'; // NEW: Import ClippingClampingExperiment
+import ThalesClassTeacherAI from './Student/ThalesClassTeacherAI'; // Thales Class Teacher AI
 import { ThalesModeProvider } from './Thales/ThalesModeContext';
 import ThalesTopBar from './Thales/ThalesTopBar';
 import ThalesLabsHub from './Thales/ThalesLabsHub';
@@ -356,6 +357,16 @@ const AppContent = () => {
           element={
             <ProtectedRoute requiresAuth={true} requiresRole="student" requiresProfile={true}>
               <ClippingClampingExperiment />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Thales Class Teacher AI Route */}
+        <Route
+          path="/thales-teacher-ai"
+          element={
+            <ProtectedRoute requiresAuth={true} requiresRole="student" requiresProfile={true}>
+              <ThalesClassTeacherAI />
             </ProtectedRoute>
           }
         />

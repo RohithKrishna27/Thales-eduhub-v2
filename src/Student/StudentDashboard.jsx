@@ -354,6 +354,31 @@ const getExperimentStatus = (experiment) => {
           </div>
         </div>
 
+        {/* Thales Class Teacher AI */}
+        <div className="mb-8 rounded-2xl border border-purple-500/30 bg-gradient-to-r from-purple-900 via-purple-800 to-indigo-900 p-5 sm:p-6 shadow-xl">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-widest text-purple-300">📚 Learning Assistant</p>
+              <h2 className="text-xl sm:text-2xl font-bold text-white mt-1">
+                {t('Class Teacher AI', 'ಕ್ಲಾಸ್ ಟೀಚರ್ AI')}
+              </h2>
+              <p className="text-sm text-purple-300 mt-2 max-w-xl">
+                {t(
+                  'Get personalized help with Physics and Chemistry concepts. Ask questions, learn theory, and understand experiments with offline text-to-speech.',
+                  'ಭೌತಶಾಸ್ತ್ರ ಮತ್ತು ರಸಾಯನಶಾಸ್ತ್ರ ಪರಿಕಲ್ಪನೆಗಳ ಬಗ್ಗೆ ವ್ಯಕ್ತಿಗತ ಸಹಾಯ ಪಡೆಯಿರಿ। ಪ್ರಶ್ನೆಗಳನ್ನು ಕೇಳಿ, ಸಿದ್ಧಾಂತ ಕಲಿಯಿರಿ.'
+                )}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => navigate('/thales-teacher-ai')}
+              className="w-full sm:w-auto shrink-0 min-h-12 px-5 py-3 rounded-xl bg-purple-500 hover:bg-purple-400 active:bg-purple-600 text-white font-semibold text-sm shadow-lg transition-colors touch-manipulation"
+            >
+              {t('Open AI Teacher', 'AI ಟೀಚರ್ ತೆರೆಯಿರಿ')}
+            </button>
+          </div>
+        </div>
+
         {/* User Dashboard */}
         <div className="mb-8">
           <div className="bg-white/70 backdrop-blur-md overflow-hidden shadow-xl rounded-2xl border border-white/30">

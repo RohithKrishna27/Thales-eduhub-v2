@@ -52,7 +52,6 @@ const LoginScreen = () => {
     <div className="min-h-[100dvh] bg-gradient-to-br from-purple-400 via-pink-400 to-orange-400 flex items-center justify-center p-3 sm:p-4 relative overflow-x-hidden overflow-y-auto">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
-        {/* Floating Books */}
         <div className="absolute top-20 left-10 animate-bounce" style={{animationDelay: '0s', animationDuration: '3s'}}>
           <div className="w-8 h-10 bg-blue-500 rounded-sm shadow-lg transform rotate-12"></div>
         </div>
@@ -62,21 +61,9 @@ const LoginScreen = () => {
         <div className="absolute bottom-40 left-20 animate-bounce" style={{animationDelay: '2s', animationDuration: '3.5s'}}>
           <div className="w-7 h-9 bg-red-500 rounded-sm shadow-lg transform rotate-6"></div>
         </div>
-        
-        {/* Floating Mathematical Symbols */}
-        <div className="absolute top-40 right-40 text-white text-2xl animate-pulse" style={{animationDelay: '0.5s'}}>
-          ∑
-        </div>
-        <div className="absolute bottom-60 right-10 text-white text-xl animate-pulse" style={{animationDelay: '1.5s'}}>
-          π
-        </div>
-        <div className="absolute top-60 left-40 text-white text-lg animate-pulse" style={{animationDelay: '2.5s'}}>
-          √
-        </div>
-        
-        {/* Geometric Shapes */}
-        <div className="absolute top-16 right-16 w-12 h-12 border-4 border-white border-opacity-30 rounded-full animate-spin" style={{animationDuration: '8s'}}></div>
-        <div className="absolute bottom-20 left-32 w-8 h-8 bg-yellow-300 bg-opacity-40 transform rotate-45 animate-pulse"></div>
+        <div className="absolute top-40 right-40 text-white text-2xl animate-pulse">∑</div>
+        <div className="absolute bottom-60 right-10 text-white text-xl animate-pulse">π</div>
+        <div className="absolute top-60 left-40 text-white text-lg animate-pulse">√</div>
       </div>
 
       {/* Main Login Card */}
@@ -84,6 +71,7 @@ const LoginScreen = () => {
         <div className="flex justify-end mb-2">
           <LanguageSwitcher />
         </div>
+
         {/* Header with Icon */}
         <div className="text-center mb-8">
           <div className="mb-4 flex justify-center">
@@ -93,23 +81,19 @@ const LoginScreen = () => {
               </svg>
             </div>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
-            EduHub
+
+          {/* HIGHLIGHTED HEADING */}
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-2">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 drop-shadow-sm">
+              Thales EduHub
+            </span>
           </h1>
-          <p className="text-gray-600 text-base sm:text-lg leading-relaxed">{t('Unlock Your Learning Journey', 'ನಿಮ್ಮ ಕಲಿಕಾ ಪ್ರಯಾಣವನ್ನು ಆರಂಭಿಸಿ')}</p>
-          <p className="text-xs text-gray-500 mt-2">
-            {t(
-              'Optimized as a mobile web app for students on phones.',
-              'ಫೋನ್ ಬಳಕೆದಾರ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಮೊಬೈಲ್ ವೆಬ್ ಆಪ್ ರೂಪದಲ್ಲಿ ಸೂಕ್ತವಾಗಿ ವಿನ್ಯಾಸಗೊಳಿಸಲಾಗಿದೆ.'
-            )}
+
+          <p className="text-gray-600 text-base sm:text-lg leading-relaxed font-medium">
+            {t('Unlock Your Learning Journey', 'ನಿಮ್ಮ ಕಲಿಕಾ ಪ್ರಯಾಣವನ್ನು ಆರಂಭಿಸಿ')}
           </p>
-          <p className="text-xs text-gray-500 mt-1">
-            {t(
-              'This page would great mobile simulation also.',
-              'ಈ ಪುಟವು ಮೊಬೈಲ್ ಸಿಮ್ಯುಲೇಷನ್‌ಗೂ ಉತ್ತಮವಾಗಿದೆ.'
-            )}
-          </p>
-          <div className="flex justify-center space-x-2 mt-3">
+          
+          <div className="flex justify-center space-x-2 mt-4">
             <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
             <div className="w-2 h-2 bg-pink-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
             <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
@@ -128,16 +112,16 @@ const LoginScreen = () => {
         )}
 
         <div className="mb-5">
-          <p className="text-sm font-semibold text-gray-700 mb-2">
+          <p className="text-sm font-semibold text-gray-700 mb-2 text-center">
             {t('Choose mode to continue', 'ಮುಂದುವರಿಸಲು ಮೋಡ್ ಆಯ್ಕೆಮಾಡಿ')}
           </p>
           <div className="grid grid-cols-2 gap-2">
             <button
               type="button"
               onClick={handleChooseOnline}
-              className={`rounded-lg min-h-11 px-3 py-2.5 text-sm font-semibold transition-colors touch-manipulation active:opacity-90 ${
+              className={`rounded-lg min-h-11 px-3 py-2.5 text-sm font-bold transition-all ${
                 selectedMode === 'online'
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-blue-600 text-white shadow-md scale-[1.02]'
                   : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
               }`}
             >
@@ -146,9 +130,9 @@ const LoginScreen = () => {
             <button
               type="button"
               onClick={handleChooseOffline}
-              className={`rounded-lg min-h-11 px-3 py-2.5 text-sm font-semibold transition-colors touch-manipulation active:opacity-90 ${
+              className={`rounded-lg min-h-11 px-3 py-2.5 text-sm font-bold transition-all ${
                 selectedMode === 'offline'
-                  ? 'bg-amber-600 text-white'
+                  ? 'bg-amber-600 text-white shadow-md scale-[1.02]'
                   : 'bg-amber-100 text-amber-700 hover:bg-amber-200'
               }`}
             >
@@ -158,20 +142,8 @@ const LoginScreen = () => {
         </div>
 
         {!isOnline && selectedMode === 'online' && (
-          <div className="mb-5 p-3 rounded-xl border border-amber-300 bg-amber-50 text-amber-900 text-sm font-semibold">
-            {t(
-              'Internet is not available. Choose Offline Mode to continue now.',
-              'ಇಂಟರ್ನೆಟ್ ಲಭ್ಯವಿಲ್ಲ. ಈಗ ಮುಂದುವರಿಸಲು ಆಫ್ಲೈನ್ ಮೋಡ್ ಆಯ್ಕೆಮಾಡಿ.'
-            )}
-          </div>
-        )}
-
-        {offlineStudentMode && (
-          <div className="mb-5 p-3 rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-900 text-sm font-semibold">
-            {t(
-              'Offline student mode is active. You can continue without backend services.',
-              'ಆಫ್ಲೈನ್ ವಿದ್ಯಾರ್ಥಿ ಮೋಡ್ ಸಕ್ರಿಯವಾಗಿದೆ. ಬ್ಯಾಕ್‌ಎಂಡ್ ಸೇವೆಗಳಿಲ್ಲದೆ ಮುಂದುವರಿಯಬಹುದು.'
-            )}
+          <div className="mb-5 p-3 rounded-xl border border-amber-300 bg-amber-50 text-amber-900 text-xs font-semibold text-center">
+            {t('Internet is not available. Choose Offline Mode to continue now.', 'ಇಂಟರ್ನೆಟ್ ಲಭ್ಯವಿಲ್ಲ. ಈಗ ಮುಂದುವರಿಸಲು ಆಫ್ಲೈನ್ ಮೋಡ್ ಆಯ್ಕೆಮಾಡಿ.')}
           </div>
         )}
 
@@ -179,13 +151,10 @@ const LoginScreen = () => {
           type="button"
           onClick={handleGoogleSignIn}
           disabled={loading || !isOnline || selectedMode !== 'online'}
-          className="w-full min-h-12 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white py-4 px-6 rounded-2xl focus:outline-none focus:ring-4 focus:ring-purple-300 focus:ring-opacity-50 transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg sm:hover:shadow-xl sm:hover:-translate-y-0.5 touch-manipulation active:scale-[0.99]"
+          className="w-full min-h-12 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-4 px-6 rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed shadow-lg active:scale-[0.98]"
         >
           {loading ? (
-            <div className="flex items-center space-x-2">
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-              <span className="font-semibold">{t('Connecting...', 'ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ...')}</span>
-            </div>
+            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
           ) : (
             <>
               <svg className="w-6 h-6" viewBox="0 0 24 24">
@@ -194,42 +163,34 @@ const LoginScreen = () => {
                 <path fill="#fff" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                 <path fill="#fff" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
               </svg>
-              <span className="font-semibold text-lg">{t('Continue with Google', 'Google ಮೂಲಕ ಮುಂದುವರಿಸಿ')}</span>
+              <span className="font-bold text-lg">{t('Continue with Google', 'Google ಮೂಲಕ ಮುಂದುವರಿಸಿ')}</span>
             </>
           )}
         </button>
 
-        {/* Educational Stats */}
         <div className="mt-8 grid grid-cols-3 gap-4 text-center">
-          <div className="p-3 bg-blue-50 rounded-xl">
-            <div className="text-2xl font-bold text-blue-600">1M+</div>
-            <div className="text-xs text-blue-500">{t('Students', 'ವಿದ್ಯಾರ್ಥಿಗಳು')}</div>
+          <div className="p-2 bg-blue-50 rounded-xl">
+            <div className="text-xl font-bold text-blue-600">1M+</div>
+            <div className="text-[10px] uppercase tracking-wide text-blue-500 font-bold">{t('Students', 'ವಿದ್ಯಾರ್ಥಿಗಳು')}</div>
           </div>
-          <div className="p-3 bg-purple-50 rounded-xl">
-            <div className="text-2xl font-bold text-purple-600">500+</div>
-            <div className="text-xs text-purple-500">{t('Courses', 'ಪಠ್ಯಕ್ರಮಗಳು')}</div>
+          <div className="p-2 bg-purple-50 rounded-xl">
+            <div className="text-xl font-bold text-purple-600">500+</div>
+            <div className="text-[10px] uppercase tracking-wide text-purple-500 font-bold">{t('Courses', 'ಪಠ್ಯಕ್ರಮಗಳು')}</div>
           </div>
-          <div className="p-3 bg-pink-50 rounded-xl">
-            <div className="text-2xl font-bold text-pink-600">24/7</div>
-            <div className="text-xs text-pink-500">{t('Support', 'ಸಹಾಯ')}</div>
+          <div className="p-2 bg-pink-50 rounded-xl">
+            <div className="text-xl font-bold text-pink-600">24/7</div>
+            <div className="text-[10px] uppercase tracking-wide text-pink-500 font-bold">{t('Support', 'ಸಹಾಯ')}</div>
           </div>
         </div>
 
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-500">
+        <div className="mt-6 text-center space-y-2">
+          <p className="text-xs text-gray-500 font-medium">
             {t('🎓 Join thousands of learners worldwide', '🎓 ವಿಶ್ವದ ಸಾವಿರಾರು ಕಲಿಯುವವರೊಂದಿಗೆ ಸೇರಿ')}
           </p>
-          <p className="text-xs text-gray-400 mt-2">
+          <p className="text-[10px] text-gray-400">
             {t('By continuing, you agree to our Terms & Privacy Policy', 'ಮುಂದುವರಿಸುವ ಮೂಲಕ, ನಮ್ಮ ನಿಯಮಗಳು ಮತ್ತು ಗೌಪ್ಯತಾ ನೀತಿಗೆ ನೀವು ಒಪ್ಪುತ್ತೀರಿ')}
           </p>
         </div>
-      </div>
-
-      {/* Floating Action Elements — hidden on small phones to avoid covering CTAs */}
-      <div className="hidden sm:block absolute bottom-10 right-10 bg-white bg-opacity-20 backdrop-blur-sm rounded-full p-4 text-white animate-pulse pointer-events-none">
-        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clipRule="evenodd"/>
-        </svg>
       </div>
     </div>
   );

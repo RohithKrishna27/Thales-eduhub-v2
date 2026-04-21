@@ -5,9 +5,12 @@ import { doc, updateDoc, arrayUnion, increment, getDoc } from 'firebase/firestor
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useLanguage } from '../LanguageContext';
 import LanguageSwitcher from '../components/LanguageSwitcher';
+import useTTS from '../hooks/useTTS';
+import TTSButton from '../components/TTSButton';
 
 const App = () => {
   const { t } = useLanguage();
+  const { speak, stopSpeech, pauseSpeech, resumeSpeech, isSpeaking, isPaused } = useTTS();
   // Microscope state
   const [selectedSlide, setSelectedSlide] = useState(null);
   const [magnification, setMagnification] = useState('4x');
@@ -461,7 +464,19 @@ const App = () => {
 
             {/* Instructions */}
             <div className="bg-purple-50 p-6 rounded-xl shadow-md border border-purple-200">
-              <h2 className="text-2xl font-bold text-purple-800 mb-4">📋 Setup Instructions</h2>
+              <div className="flex items-center gap-3 mb-4">
+                <h2 className="text-2xl font-bold text-purple-800">📋 Setup Instructions</h2>
+                <TTSButton
+                  text="1. Place the Compound Microscope on the table. 2. Position the Slide Box with specimens. 3. Add the Cover Slips. 4. Install the 4x Objective Lens. 5. Install the 10x Objective Lens. 6. Install the 40x Objective Lens."
+                  speak={speak}
+                  stopSpeech={stopSpeech}
+                  pauseSpeech={pauseSpeech}
+                  resumeSpeech={resumeSpeech}
+                  isSpeaking={isSpeaking}
+                  isPaused={isPaused}
+                  buttonSize="md"
+                />
+              </div>
               <ol className="list-decimal list-inside space-y-2 text-gray-700 font-semibold">
                 <li>Place the <strong>Compound Microscope</strong> on the table</li>
                 <li>Position the <strong>Slide Box</strong> with specimens</li>

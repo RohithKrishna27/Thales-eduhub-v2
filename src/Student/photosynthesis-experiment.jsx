@@ -5,10 +5,11 @@ import { db, auth } from '../firebase';
 import { doc, updateDoc, arrayUnion, increment, getDoc } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useLanguage } from '../LanguageContext';
-import LanguageSwitcher from '../components/LanguageSwitcher';
-
+import LanguageSwitcher from '../components/LanguageSwitcher';import useTTS from '../hooks/useTTS';
+import TTSButton from '../components/TTSButton';
 const App = () => {
   const { t } = useLanguage();
+  const { speak, stopSpeech, pauseSpeech, resumeSpeech, isSpeaking, isPaused } = useTTS();
   // Experiment state
   const [lightIntensity, setLightIntensity] = useState(50);
   const [temperature, setTemperature] = useState(25);
@@ -479,7 +480,19 @@ const App = () => {
 
             {/* Instructions */}
             <div className="bg-green-50 p-6 rounded-xl shadow-md border border-green-200">
-              <h2 className="text-2xl font-bold text-green-800 mb-4">{t('📋 Setup Instructions', '📋 ಸಿದ್ಧತಾ ಸೂಚನೆಗಳು')}</h2>
+              <div className="flex items-center gap-3 mb-4">
+                <h2 className="text-2xl font-bold text-green-800">{t('📋 Setup Instructions', '📋 ಸಿದ್ಧತಾ ಸೂಚನೆಗಳು')}</h2>
+                <TTSButton
+                  text="1. Place the Beaker filled with water. 2. Add the Aquatic Plant Hydrilla into the beaker. 3. Position the Funnel over the plant. 4. Place the Test Tube filled with water over the funnel. 5. Add the Lamp as light source. 6. Insert the Thermometer to monitor temperature."
+                  speak={speak}
+                  stopSpeech={stopSpeech}
+                  pauseSpeech={pauseSpeech}
+                  resumeSpeech={resumeSpeech}
+                  isSpeaking={isSpeaking}
+                  isPaused={isPaused}
+                  buttonSize="md"
+                />
+              </div>
               <ol className="list-decimal list-inside space-y-2 text-gray-700 font-semibold">
                 <li>Place the <strong>Beaker</strong> filled with water</li>
                 <li>Add the <strong>Aquatic Plant</strong> (Hydrilla) into the beaker</li>

@@ -6,9 +6,12 @@ import { doc, updateDoc, arrayUnion, increment, getDoc } from 'firebase/firestor
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useLanguage } from '../LanguageContext';
 import LanguageSwitcher from '../components/LanguageSwitcher';
+import useTTS from '../hooks/useTTS';
+import TTSButton from '../components/TTSButton';
 
 const App = () => {
   const { t } = useLanguage();
+  const { speak, stopSpeech, pauseSpeech, resumeSpeech, isSpeaking, isPaused } = useTTS();
   // State for data management
   const [dataPoints, setDataPoints] = useState([]);
   const [currentValue, setCurrentValue] = useState('');
@@ -610,6 +613,16 @@ const App = () => {
                   <Activity className="text-white" size={24} />
                 </div>
                 <h2 className="text-2xl font-bold text-blue-900">📚 Experiment Guide</h2>
+                <TTSButton
+                  text="1. Choose a real-world dataset or create your own custom data. 2. Add data points and observe live statistical calculations. 3. Analyze patterns using multiple visualization methods. 4. Interpret results and understand data distribution. 5. Export your analysis for reports and presentations."
+                  speak={speak}
+                  stopSpeech={stopSpeech}
+                  pauseSpeech={pauseSpeech}
+                  resumeSpeech={resumeSpeech}
+                  isSpeaking={isSpeaking}
+                  isPaused={isPaused}
+                  buttonSize="md"
+                />
               </div>
               <div className="space-y-3">
                 <div className="flex items-start gap-3 p-3 bg-white rounded-xl shadow-sm">

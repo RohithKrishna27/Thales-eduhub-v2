@@ -6,9 +6,12 @@ import { doc, updateDoc, arrayUnion, increment, getDoc } from 'firebase/firestor
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useLanguage } from '../LanguageContext';
 import LanguageSwitcher from '../components/LanguageSwitcher';
+import useTTS from '../hooks/useTTS';
+import TTSButton from '../components/TTSButton';
 
 const App = () => {
   const { t } = useLanguage();
+  const { speak, stopSpeech, pauseSpeech, resumeSpeech, isSpeaking, isPaused } = useTTS();
   // Titration state
   const [acidConcentration, setAcidConcentration] = useState(0.1); // mol/L (unknown to student initially)
   const [baseConcentration, setBaseConcentration] = useState(0.1); // mol/L (known)
@@ -452,7 +455,19 @@ const App = () => {
 
             {/* Instructions */}
             <div className="bg-purple-50 p-6 rounded-xl shadow-md border border-purple-200">
-              <h2 className="text-2xl font-bold text-purple-800 mb-4">📋 Setup Instructions</h2>
+              <div className="flex items-center gap-3 mb-4">
+                <h2 className="text-2xl font-bold text-purple-800">📋 Setup Instructions</h2>
+                <TTSButton
+                  text="1. Drag the Retort Stand to its position. 2. Place the Burette on the stand. 3. Position the Conical Flask below the burette. 4. Add the Indicator Bottle. 5. Place the Acid Bottle containing unknown concentration. 6. Place the Base Bottle containing 0.1 M NaOH"
+                  speak={speak}
+                  stopSpeech={stopSpeech}
+                  pauseSpeech={pauseSpeech}
+                  resumeSpeech={resumeSpeech}
+                  isSpeaking={isSpeaking}
+                  isPaused={isPaused}
+                  buttonSize="md"
+                />
+              </div>
               <ol className="list-decimal list-inside space-y-2 text-gray-700 font-semibold">
                 <li>Drag the <strong>Retort Stand</strong> to its position</li>
                 <li>Place the <strong>Burette</strong> on the stand</li>
