@@ -22,18 +22,18 @@ export default function CourseCertificateModal({
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-900/70 backdrop-blur-sm overflow-y-auto overscroll-contain"
       role="dialog"
       aria-modal="true"
       aria-labelledby="cert-title"
     >
       <div
-        className={`relative w-full max-w-lg bg-white border-4 ${accentRing} p-8 md:p-10`}
+        className={`relative w-full max-w-lg bg-white border-4 ${accentRing} p-6 sm:p-8 md:p-10 my-auto sm:mx-0 mx-3 max-h-[92dvh] overflow-y-auto shadow-2xl rounded-t-2xl sm:rounded-xl`}
       >
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-3 right-3 p-2 text-slate-400 hover:text-slate-900 transition-colors"
+          className="absolute top-2 right-2 sm:top-3 sm:right-3 min-w-11 min-h-11 flex items-center justify-center text-slate-400 hover:text-slate-900 transition-colors touch-manipulation rounded-lg hover:bg-slate-100"
           aria-label="Close"
         >
           <X size={22} />

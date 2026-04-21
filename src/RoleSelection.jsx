@@ -20,7 +20,7 @@ const RoleSelection = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-[100dvh] bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center p-3 sm:p-4 relative overflow-x-hidden overflow-y-auto">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         {/* Floating Academic Elements */}
@@ -59,7 +59,7 @@ const RoleSelection = () => {
       </div>
 
       {/* Main Content */}
-      <div className="bg-white bg-opacity-95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 w-full max-w-4xl relative z-10 transform hover:scale-[1.02] transition-all duration-500">
+      <div className="bg-white bg-opacity-95 backdrop-blur-lg rounded-2xl sm:rounded-3xl shadow-2xl p-5 sm:p-8 w-full max-w-4xl max-h-[94dvh] overflow-y-auto overscroll-contain relative z-10 my-4 md:hover:scale-[1.01] transition-all duration-500">
         <div className="flex justify-end mb-4">
           <LanguageSwitcher />
         </div>
@@ -72,10 +72,10 @@ const RoleSelection = () => {
               </svg>
             </div>
           </div>
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-4 leading-tight">
             {t('Choose Your Journey', 'ನಿಮ್ಮ ಪ್ರಯಾಣವನ್ನು ಆಯ್ಕೆಮಾಡಿ')}
           </h1>
-          <p className="text-gray-600 text-xl">{t('Shape your learning experience by selecting your role', 'ನಿಮ್ಮ ಪಾತ್ರವನ್ನು ಆಯ್ಕೆ ಮಾಡಿ ಕಲಿಕಾ ಅನುಭವವನ್ನು ರೂಪಿಸಿ')}</p>
+          <p className="text-gray-600 text-base sm:text-lg md:text-xl leading-relaxed px-1">{t('Shape your learning experience by selecting your role', 'ನಿಮ್ಮ ಪಾತ್ರವನ್ನು ಆಯ್ಕೆ ಮಾಡಿ ಕಲಿಕಾ ಅನುಭವವನ್ನು ರೂಪಿಸಿ')}</p>
           
           {/* Progress Indicator */}
           <div className="flex justify-center mt-6 space-x-2">
@@ -86,11 +86,11 @@ const RoleSelection = () => {
         </div>
 
         {/* Role Cards */}
-        <div className="grid md:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8 mb-8">
           {/* Student Card */}
           <div
             onClick={() => handleRoleSelection('student')}
-            className={`group relative p-8 rounded-3xl cursor-pointer transition-all duration-500 transform hover:-translate-y-2 hover:shadow-2xl ${
+            className={`group relative p-6 sm:p-8 rounded-2xl sm:rounded-3xl cursor-pointer transition-all duration-500 sm:transform sm:hover:-translate-y-2 sm:hover:shadow-2xl touch-manipulation active:scale-[0.99] min-h-[12rem] ${
               selectedRole === 'student'
                 ? 'bg-gradient-to-br from-blue-400 to-cyan-400 text-white scale-105 shadow-2xl'
                 : 'bg-gradient-to-br from-blue-50 to-cyan-50 hover:from-blue-100 hover:to-cyan-100 border-2 border-blue-200 hover:border-blue-400'
@@ -152,7 +152,7 @@ const RoleSelection = () => {
           {/* Teacher Card */}
           <div
             onClick={() => handleRoleSelection('teacher')}
-            className={`group relative p-8 rounded-3xl cursor-pointer transition-all duration-500 transform hover:-translate-y-2 hover:shadow-2xl ${
+            className={`group relative p-6 sm:p-8 rounded-2xl sm:rounded-3xl cursor-pointer transition-all duration-500 sm:transform sm:hover:-translate-y-2 sm:hover:shadow-2xl touch-manipulation active:scale-[0.99] min-h-[12rem] ${
               selectedRole === 'teacher'
                 ? 'bg-gradient-to-br from-emerald-400 to-teal-400 text-white scale-105 shadow-2xl'
                 : 'bg-gradient-to-br from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100 border-2 border-emerald-200 hover:border-emerald-400'

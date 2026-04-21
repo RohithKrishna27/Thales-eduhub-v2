@@ -221,37 +221,47 @@ const getExperimentStatus = (experiment) => {
 };
 
   const ChatbotWindow = () => (
-    <div className={`fixed bottom-4 right-4 z-50 transition-all duration-300 ${isChatbotOpen ? 'w-80 h-96' : 'w-16 h-16'}`}>
+    <div
+      className={`fixed z-50 transition-all duration-300 touch-manipulation ${
+        isChatbotOpen
+          ? 'inset-x-0 bottom-0 sm:inset-auto sm:bottom-4 sm:right-4 w-full sm:w-80 h-[min(88dvh,36rem)] sm:h-96 sm:rounded-2xl rounded-t-2xl'
+          : 'bottom-4 right-4 left-auto w-14 h-14 sm:w-16 sm:h-16'
+      }`}
+    >
       {isChatbotOpen ? (
-        <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 h-full flex flex-col">
-          <div className="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-4 rounded-t-2xl">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+        <div className="bg-white shadow-2xl border border-gray-200 h-full flex flex-col sm:rounded-2xl rounded-t-2xl overflow-hidden pb-[env(safe-area-inset-bottom)]">
+          <div className="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-4 rounded-t-2xl sm:rounded-t-2xl shrink-0">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center space-x-2 min-w-0">
+                <div className="w-9 h-9 bg-white/20 rounded-full flex items-center justify-center shrink-0">
                   🤖
                 </div>
-                <span className="font-medium">{t('Lab Assistant', 'ಲ್ಯಾಬ್ ಸಹಾಯಕ')}</span>
+                <span className="font-medium truncate">{t('Lab Assistant', 'ಲ್ಯಾಬ್ ಸಹಾಯಕ')}</span>
               </div>
               <button
+                type="button"
                 onClick={() => setIsChatbotOpen(false)}
-                className="text-white/80 hover:text-white transition-colors"
+                className="min-w-11 min-h-11 flex items-center justify-center rounded-lg text-white/90 hover:bg-white/10 active:bg-white/20"
+                aria-label="Close assistant"
               >
                 ✕
               </button>
             </div>
           </div>
-          <div className="flex-1 p-4">
+          <div className="flex-1 p-3 sm:p-4 min-h-0">
             <iframe
               src="https://dulcet-raindrop-c74e76.netlify.app/"
-              className="w-full h-full border-none rounded-lg"
+              className="w-full h-full min-h-[12rem] border-none rounded-lg"
               title="Lab Assistant Chatbot"
             />
           </div>
         </div>
       ) : (
         <button
+          type="button"
           onClick={() => setIsChatbotOpen(true)}
-          className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-2xl hover:scale-110"
+          className="w-full h-full bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full shadow-lg sm:hover:shadow-xl transition-all duration-300 flex items-center justify-center text-2xl sm:hover:scale-105 active:scale-95"
+          aria-label={t('Open lab assistant', 'ಲ್ಯಾಬ್ ಸಹಾಯಕ ತೆರೆಯಿರಿ')}
         >
           🤖
         </button>
@@ -271,7 +281,7 @@ const getExperimentStatus = (experiment) => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+    <div className="min-h-[100dvh] bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 pb-[max(1rem,env(safe-area-inset-bottom))]">
       {/* Decorative Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-r from-blue-200/30 to-purple-200/30 rounded-full blur-3xl"></div>
@@ -280,32 +290,34 @@ const getExperimentStatus = (experiment) => {
 
       {/* Header */}
       <header className="relative bg-white/80 backdrop-blur-md shadow-lg border-b border-white/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-3">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:py-0 sm:h-16">
+            <div className="flex items-center gap-2 sm:space-x-3 min-w-0">
               <button
+                type="button"
                 onClick={() => navigate('/student-dashboard')}
-                className="p-2 rounded-lg hover:bg-white/60 transition-colors"
+                className="min-w-11 min-h-11 shrink-0 flex items-center justify-center rounded-lg hover:bg-white/60 active:bg-white/80 transition-colors touch-manipulation"
+                aria-label={t('Back', 'ಹಿಂದೆ')}
               >
                 <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+              <div className="w-9 h-9 sm:w-8 sm:h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center shrink-0">
                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                 </svg>
               </div>
-              <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <h1 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent truncate">
                 {t('Lab Experiments', 'ಲ್ಯಾಬ್ ಪ್ರಯೋಗಗಳು')}
               </h1>
             </div>
-            <div className="flex items-center space-x-4">
-              <LanguageSwitcher />
-              <div className="text-sm text-gray-600">
+            <div className="flex items-center justify-between sm:justify-end gap-3 sm:space-x-4 flex-wrap">
+              <LanguageSwitcher className="flex-1 sm:flex-initial min-w-0 justify-end sm:justify-start" />
+              <div className="hidden sm:block text-sm text-gray-600 max-w-[10rem] truncate md:max-w-[14rem]">
                 {t('Welcome,', 'ಸ್ವಾಗತ,')} {userProfile?.name || t('Student', 'ವಿದ್ಯಾರ್ಥಿ')}
               </div>
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-sm font-medium">
+              <div className="w-9 h-9 sm:w-8 sm:h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-sm font-medium shrink-0">
                 {userProfile?.name?.charAt(0) || 'S'}
               </div>
             </div>
@@ -314,7 +326,7 @@ const getExperimentStatus = (experiment) => {
       </header>
 
       {/* Main Content */}
-      <main className="relative max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+      <main className="relative max-w-7xl mx-auto py-6 sm:py-8 px-3 sm:px-6 lg:px-8 pb-24 sm:pb-20">
         <div className="mb-8 rounded-2xl border border-cyan-500/30 bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-900 p-5 sm:p-6 shadow-xl">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
@@ -335,7 +347,7 @@ const getExperimentStatus = (experiment) => {
                 setThalesMode(true);
                 navigate('/thales-labs');
               }}
-              className="shrink-0 px-5 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-semibold text-sm shadow-lg transition-colors"
+              className="w-full sm:w-auto shrink-0 min-h-12 px-5 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 active:bg-cyan-600 text-slate-900 font-semibold text-sm shadow-lg transition-colors touch-manipulation"
             >
               {t('Open Thales labs', 'ಥೇಲ್ಸ್ ಲ್ಯಾಬ್‌ಗಳನ್ನು ತೆರೆಯಿರಿ')}
             </button>
@@ -348,12 +360,21 @@ const getExperimentStatus = (experiment) => {
             <div className="bg-gradient-to-r from-blue-600/10 to-purple-600/10 px-6 py-6">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+                  <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2 leading-tight">
                     🧪 Virtual Lab Dashboard
                   </h2>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
                     Welcome back, {userProfile?.name || 'Student'}! Ready to explore science?
                   </p>
+                </div>
+                <div className="flex md:hidden items-center gap-3 mt-2">
+                  <div className="text-right text-xs flex-1">
+                    <div className="text-gray-500">Class</div>
+                    <div className="font-semibold text-gray-800">{userProfile?.class || userLabData?.class || 'N/A'}</div>
+                  </div>
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-lg font-bold shrink-0">
+                    {userProfile?.name?.charAt(0) || 'S'}
+                  </div>
                 </div>
                 <div className="hidden md:flex items-center space-x-4">
                   <div className="text-right">
@@ -439,12 +460,13 @@ const getExperimentStatus = (experiment) => {
         <div className="mb-8">
           <div className="bg-white/70 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-white/30">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('Filter by Subject', 'ವಿಷಯ ಆಧಾರಿತ ಫಿಲ್ಟರ್')}</h3>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex gap-2 overflow-x-auto overflow-touch overscroll-x-contain pb-2 -mx-1 px-1 snap-x snap-mandatory touch-pan-x">
               {subjects.map((subject) => (
                 <button
                   key={subject.id}
+                  type="button"
                   onClick={() => setSelectedSubject(subject.id)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                  className={`shrink-0 snap-start min-h-11 px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-200 touch-manipulation ${
                     selectedSubject === subject.id
                       ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
                       : 'bg-white/60 text-gray-700 hover:bg-white/80'
@@ -468,7 +490,7 @@ const getExperimentStatus = (experiment) => {
                 onClick={() => handleExperimentClick(experiment)}
               >
                 <div className={`h-2 bg-gradient-to-r ${getSubjectColor(experiment.subject)}`}></div>
-                <div className="p-6">
+                <div className="p-4 sm:p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div className={`w-12 h-12 bg-gradient-to-r ${getSubjectColor(experiment.subject)} rounded-xl flex items-center justify-center shadow-lg`}>
                       <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -496,7 +518,8 @@ const getExperimentStatus = (experiment) => {
                   </div>
 
                   <button
-                    className={`w-full py-2 px-4 rounded-xl font-medium transition-all duration-200 transform hover:-translate-y-0.5 ${
+                    type="button"
+                    className={`w-full min-h-11 py-2.5 px-4 rounded-xl font-medium transition-all duration-200 sm:transform sm:hover:-translate-y-0.5 touch-manipulation ${
                       experiment.completed
                         ? 'bg-green-500 text-white cursor-default'
                         : experiment.status === 'available'

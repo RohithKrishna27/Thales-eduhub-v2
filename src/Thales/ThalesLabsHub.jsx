@@ -7,29 +7,29 @@ const ThalesLabsHub = () => {
   const { t } = useLanguage();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-slate-100">
+    <div className="min-h-[100dvh] bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-slate-100 pb-[max(1rem,env(safe-area-inset-bottom))]">
       <header className="border-b border-cyan-500/25 bg-slate-950/80 backdrop-blur-md">
-        <div className="max-w-5xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
-          <div>
+        <div className="max-w-5xl mx-auto px-3 sm:px-4 py-4 flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-4">
+          <div className="min-w-0">
             <p className="text-xs uppercase tracking-[0.2em] text-cyan-400 font-semibold">Thales</p>
-            <h1 className="text-2xl font-bold text-white mt-1">
+            <h1 className="text-xl sm:text-2xl font-bold text-white mt-1 leading-tight">
               {t('Mission lab hub', 'ಮಿಷನ್ ಲ್ಯಾಬ್ ಹಬ್')}
             </h1>
-            <p className="text-sm text-slate-400 mt-1 max-w-xl">
+            <p className="text-sm text-slate-400 mt-1 max-w-xl leading-relaxed">
               {t(
                 'Pick a track. Each mission uses sliders and instant feedback like a hands-on lab.',
                 'ಟ್ರ್ಯಾಕ್ ಆಯ್ಕೆಮಾಡಿ. ಪ್ರತಿ ಮಿಷನ್‌ನಲ್ಲಿ ಸ್ಲೈಡರ್‌ಗಳು ಮತ್ತು ತಕ್ಷಣದ ಪ್ರತಿಕ್ರಿಯೆ ಇರುತ್ತದೆ.'
               )}
             </p>
           </div>
-          <LanguageSwitcher />
+          <LanguageSwitcher className="self-start sm:self-center" />
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-4 py-8 grid sm:grid-cols-2 gap-6">
+      <main className="max-w-5xl mx-auto px-3 sm:px-4 py-6 sm:py-8 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         <Link
           to="/thales-labs/cyber"
-          className="group rounded-2xl border border-red-500/30 bg-gradient-to-br from-red-950/60 to-slate-900/80 p-6 hover:border-red-400/60 transition-all hover:shadow-lg hover:shadow-red-900/20"
+          className="group rounded-2xl border border-red-500/30 bg-gradient-to-br from-red-950/60 to-slate-900/80 p-5 sm:p-6 min-h-[11rem] active:scale-[0.99] transition-all hover:border-red-400/60 md:hover:shadow-lg md:hover:shadow-red-900/20 touch-manipulation"
         >
           <div className="text-3xl mb-3">🛡️</div>
           <h2 className="text-xl font-bold text-white group-hover:text-red-200">
@@ -43,7 +43,7 @@ const ThalesLabsHub = () => {
 
         <Link
           to="/thales-labs/aerospace"
-          className="group rounded-2xl border border-sky-500/30 bg-gradient-to-br from-sky-950/60 to-slate-900/80 p-6 hover:border-sky-400/60 transition-all hover:shadow-lg hover:shadow-sky-900/20"
+          className="group rounded-2xl border border-sky-500/30 bg-gradient-to-br from-sky-950/60 to-slate-900/80 p-5 sm:p-6 min-h-[11rem] active:scale-[0.99] transition-all hover:border-sky-400/60 md:hover:shadow-lg md:hover:shadow-sky-900/20 touch-manipulation"
         >
           <div className="text-3xl mb-3">✈️</div>
           <h2 className="text-xl font-bold text-white group-hover:text-sky-200">

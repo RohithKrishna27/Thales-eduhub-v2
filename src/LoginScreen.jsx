@@ -49,7 +49,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-400 to-orange-400 flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-[100dvh] bg-gradient-to-br from-purple-400 via-pink-400 to-orange-400 flex items-center justify-center p-3 sm:p-4 relative overflow-x-hidden overflow-y-auto">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         {/* Floating Books */}
@@ -80,7 +80,7 @@ const LoginScreen = () => {
       </div>
 
       {/* Main Login Card */}
-      <div className="bg-white bg-opacity-95 backdrop-blur-sm rounded-3xl shadow-2xl p-8 w-full max-w-md relative z-10 transform hover:scale-105 transition-all duration-300">
+      <div className="bg-white bg-opacity-95 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 w-full max-w-md max-h-[92dvh] overflow-y-auto overscroll-contain relative z-10 my-4 md:hover:scale-[1.02] transition-all duration-300">
         <div className="flex justify-end mb-2">
           <LanguageSwitcher />
         </div>
@@ -93,10 +93,10 @@ const LoginScreen = () => {
               </svg>
             </div>
           </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
+          <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
             EduHub
           </h1>
-          <p className="text-gray-600 text-lg">{t('Unlock Your Learning Journey', 'ನಿಮ್ಮ ಕಲಿಕಾ ಪ್ರಯಾಣವನ್ನು ಆರಂಭಿಸಿ')}</p>
+          <p className="text-gray-600 text-base sm:text-lg leading-relaxed">{t('Unlock Your Learning Journey', 'ನಿಮ್ಮ ಕಲಿಕಾ ಪ್ರಯಾಣವನ್ನು ಆರಂಭಿಸಿ')}</p>
           <p className="text-xs text-gray-500 mt-2">
             {t(
               'Optimized as a mobile web app for students on phones.',
@@ -135,7 +135,7 @@ const LoginScreen = () => {
             <button
               type="button"
               onClick={handleChooseOnline}
-              className={`rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
+              className={`rounded-lg min-h-11 px-3 py-2.5 text-sm font-semibold transition-colors touch-manipulation active:opacity-90 ${
                 selectedMode === 'online'
                   ? 'bg-blue-600 text-white'
                   : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
@@ -146,7 +146,7 @@ const LoginScreen = () => {
             <button
               type="button"
               onClick={handleChooseOffline}
-              className={`rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
+              className={`rounded-lg min-h-11 px-3 py-2.5 text-sm font-semibold transition-colors touch-manipulation active:opacity-90 ${
                 selectedMode === 'offline'
                   ? 'bg-amber-600 text-white'
                   : 'bg-amber-100 text-amber-700 hover:bg-amber-200'
@@ -176,9 +176,10 @@ const LoginScreen = () => {
         )}
 
         <button
+          type="button"
           onClick={handleGoogleSignIn}
           disabled={loading || !isOnline || selectedMode !== 'online'}
-          className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white py-4 px-6 rounded-2xl focus:outline-none focus:ring-4 focus:ring-purple-300 focus:ring-opacity-50 transition-all duration-300 flex items-center justify-center space-x-3 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+          className="w-full min-h-12 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white py-4 px-6 rounded-2xl focus:outline-none focus:ring-4 focus:ring-purple-300 focus:ring-opacity-50 transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg sm:hover:shadow-xl sm:hover:-translate-y-0.5 touch-manipulation active:scale-[0.99]"
         >
           {loading ? (
             <div className="flex items-center space-x-2">
@@ -224,8 +225,8 @@ const LoginScreen = () => {
         </div>
       </div>
 
-      {/* Floating Action Elements */}
-      <div className="absolute bottom-10 right-10 bg-white bg-opacity-20 backdrop-blur-sm rounded-full p-4 text-white animate-pulse">
+      {/* Floating Action Elements — hidden on small phones to avoid covering CTAs */}
+      <div className="hidden sm:block absolute bottom-10 right-10 bg-white bg-opacity-20 backdrop-blur-sm rounded-full p-4 text-white animate-pulse pointer-events-none">
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
           <path fillRule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clipRule="evenodd"/>
         </svg>

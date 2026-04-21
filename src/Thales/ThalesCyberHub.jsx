@@ -63,12 +63,12 @@ const ThalesCyberHub = () => {
   const [certModal, setCertModal] = useState(null);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans border-[12px] border-slate-50">
+    <div className="min-h-[100dvh] bg-white text-slate-900 font-sans border-4 sm:border-[12px] border-slate-50 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
       {/* Top Branding Section */}
       <header className="border-b-4 border-slate-900">
-        <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
+        <div className="max-w-6xl mx-auto px-3 sm:px-6 py-5 sm:py-8 flex flex-col md:flex-row justify-between items-stretch md:items-end gap-4">
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 mb-2 flex-wrap">
               <span className="bg-red-600 text-white text-[10px] font-black px-2 py-0.5 tracking-tighter uppercase">
                 Edutech
               </span>
@@ -76,20 +76,20 @@ const ThalesCyberHub = () => {
                 {t('Mention by Thales', 'ಥೇಲ್ಸ್ ಪ್ರಸ್ತುತಪಡಿಸಿದ')}
               </span>
             </div>
-            <h1 className="text-4xl font-black text-slate-900 tracking-tighter uppercase leading-none">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tighter uppercase leading-[1.05] break-words">
               THALES EDUTECH <span className="text-red-600">CYBERSECURITY</span>
             </h1>
-            <p className="mt-2 text-slate-500 font-medium text-sm">
+            <p className="mt-2 text-slate-500 font-medium text-sm leading-relaxed">
               {t('Defense Training & Threat Intelligence Environment', 'ರಕ್ಷಣಾ ತರಬೇತಿ ಮತ್ತು ಬೆದರಿಕೆ ಗುಪ್ತಚರ ಪರಿಸರ')}
             </p>
           </div>
-          <div className="flex items-center gap-6 pb-1">
-            <LanguageSwitcher />
+          <div className="flex items-center gap-4 pb-1 md:self-end shrink-0">
+            <LanguageSwitcher className="w-full md:w-auto justify-end md:justify-start" />
           </div>
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-6 py-12">
+      <main className="max-w-6xl mx-auto px-3 sm:px-6 py-6 sm:py-12">
         <div className="flex items-center gap-2 mb-8">
           <Terminal size={18} className="text-red-600" />
           <h2 className="font-bold text-lg uppercase tracking-wider">{t('Mission Board', 'ಮಿಷನ್ ಬೋರ್ಡ್')}</h2>
@@ -118,54 +118,55 @@ const ThalesCyberHub = () => {
               className="group flex flex-col md:flex-row border-b-2 border-slate-900 hover:bg-slate-50 transition-all"
             >
               {/* ID & Category */}
-              <div className="md:w-32 p-4 flex flex-col justify-center items-center border-b md:border-b-0 md:border-r-2 border-slate-900 bg-slate-50 group-hover:bg-red-50 transition-colors">
+              <div className="md:w-32 p-3 sm:p-4 flex flex-row md:flex-col justify-between md:justify-center items-center gap-2 md:gap-0 border-b md:border-b-0 md:border-r-2 border-slate-900 bg-slate-50 group-hover:bg-red-50 transition-colors">
                 <span className="text-xs font-black text-slate-400 group-hover:text-red-600">0{index + 1}</span>
-                <span className="text-[9px] font-black tracking-widest text-slate-900 mt-1 uppercase text-center">{m.category}</span>
+                <span className="text-[9px] font-black tracking-widest text-slate-900 md:mt-1 uppercase text-center">{m.category}</span>
               </div>
 
               {/* Main Content */}
-              <div className="flex-grow p-6">
-                <div className="flex items-center gap-3 mb-2">
-                   {m.icon}
-                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{m.status}</span>
+              <div className="flex-grow p-4 sm:p-6 min-w-0">
+                <div className="flex items-center gap-3 mb-2 min-w-0">
+                   <span className="shrink-0">{m.icon}</span>
+                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest truncate">{m.status}</span>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 group-hover:text-red-700 leading-tight">
+                <h3 className="text-lg sm:text-xl font-bold text-slate-900 group-hover:text-red-700 leading-tight">
                   {t(m.titleEn, m.titleKn)}
                 </h3>
-                <p className="text-sm text-slate-500 mt-1">
+                <p className="text-sm text-slate-500 mt-1 leading-relaxed">
                   {t(m.blurbEn, m.blurbKn)}
                 </p>
               </div>
 
-              {/* Action Button */}
-              <div className="md:w-48 p-6 flex items-center justify-center border-t md:border-t-0 md:border-l-2 border-slate-900">
-                {m.comingSoon ? (
-                  <button type="button" className="w-full py-4 bg-slate-300 text-slate-600 text-center text-xs font-black uppercase tracking-widest cursor-not-allowed opacity-60">
-                    {t('Coming Soon', 'ಶೀಘ್ರದಲ್ಲೇ')}
-                  </button>
-                ) : (
-                  <Link 
-                    to={`/thales-labs/cyber/${m.id}`}
-                    className="w-full py-4 bg-slate-900 text-white text-center text-xs font-black uppercase tracking-widest hover:bg-red-600 transition-colors shadow-[4px_4px_0px_0px_rgba(220,38,38,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1"
-                  >
-                    {t('Initialize Lab', 'ಲ್ಯಾಬ್ ಪ್ರಾರಂಭಿಸಿ')}
-                  </Link>
-                )}
-              </div>
+              <div className="grid grid-cols-2 border-t-2 border-slate-900 md:contents">
+                <div className="md:w-48 p-3 sm:p-6 flex items-stretch justify-center border-r-2 border-slate-900 md:border-r-0 md:border-t-0 md:border-l-2 border-slate-900 touch-manipulation">
+                  {m.comingSoon ? (
+                    <button type="button" className="w-full min-h-12 py-3 sm:py-4 bg-slate-300 text-slate-600 text-center text-[10px] sm:text-xs font-black uppercase tracking-widest cursor-not-allowed opacity-60 flex items-center justify-center">
+                      {t('Coming Soon', 'ಶೀಘ್ರದಲ್ಲೇ')}
+                    </button>
+                  ) : (
+                    <Link 
+                      to={`/thales-labs/cyber/${m.id}`}
+                      className="w-full min-h-12 py-3 sm:py-4 flex items-center justify-center bg-slate-900 text-white text-center text-[10px] sm:text-xs font-black uppercase tracking-widest hover:bg-red-600 active:bg-red-700 transition-colors shadow-[3px_3px_0px_0px_rgba(220,38,38,1)] sm:shadow-[4px_4px_0px_0px_rgba(220,38,38,1)] md:hover:shadow-none md:hover:translate-x-0.5 md:hover:translate-y-0.5"
+                    >
+                      {t('Initialize Lab', 'ಲ್ಯಾಬ್ ಪ್ರಾರಂಭಿಸಿ')}
+                    </Link>
+                  )}
+                </div>
 
-              <div className="md:w-44 p-6 flex items-center justify-center border-t md:border-t-0 md:border-l-2 border-slate-900 bg-slate-50/80 group-hover:bg-red-50/50">
-                <button
-                  type="button"
-                  onClick={() =>
-                    setCertModal({
-                      title: t(m.titleEn, m.titleKn),
-                    })
-                  }
-                  className="w-full py-3 px-2 flex flex-col items-center justify-center gap-1 border-2 border-slate-900 bg-white text-slate-900 text-[10px] font-black uppercase tracking-widest hover:bg-red-600 hover:text-white hover:border-red-600 transition-colors shadow-[3px_3px_0_0_rgba(220,38,38,0.35)]"
-                >
-                  <Award size={18} className="shrink-0" strokeWidth={2} />
-                  {t('View certificate', 'ಪ್ರಮಾಣಪತ್ರ ವೀಕ್ಷಿಸಿ')}
-                </button>
+                <div className="md:w-44 p-3 sm:p-6 flex items-stretch justify-center md:border-t-0 md:border-l-2 border-slate-900 bg-slate-50/80 group-hover:bg-red-50/50 touch-manipulation">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setCertModal({
+                        title: t(m.titleEn, m.titleKn),
+                      })
+                    }
+                    className="w-full min-h-12 py-3 px-1 sm:px-2 flex flex-col items-center justify-center gap-1 border-2 border-slate-900 bg-white text-slate-900 text-[9px] sm:text-[10px] font-black uppercase tracking-tight sm:tracking-widest hover:bg-red-600 hover:text-white hover:border-red-600 active:opacity-95 transition-colors shadow-[2px_2px_0_0_rgba(220,38,38,0.35)] sm:shadow-[3px_3px_0_0_rgba(220,38,38,0.35)]"
+                  >
+                    <Award size={18} className="shrink-0" strokeWidth={2} />
+                    <span className="text-center leading-tight">{t('View certificate', 'ಪ್ರಮಾಣಪತ್ರ ವೀಕ್ಷಿಸಿ')}</span>
+                  </button>
+                </div>
               </div>
             </div>
           ))}
@@ -180,12 +181,12 @@ const ThalesCyberHub = () => {
         accent="red"
       />
 
-      <footer className="max-w-6xl mx-auto px-6 py-12 border-t border-slate-100">
-        <div className="flex flex-col md:flex-row justify-between gap-4">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+      <footer className="max-w-6xl mx-auto px-3 sm:px-6 py-8 sm:py-12 border-t border-slate-100">
+        <div className="flex flex-col items-center text-center md:items-stretch md:text-left md:flex-row justify-between gap-4">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] max-w-md">
             Thales Cyber Defense Academy // Secure Internal Node
           </p>
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] shrink-0">
             © 2026 Thales Group Edutech Initiative
           </p>
         </div>

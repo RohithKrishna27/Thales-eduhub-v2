@@ -9,7 +9,7 @@ const OfflineModeBanner = ({ isOnline }) => {
   }
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-amber-500 text-amber-950 text-center text-sm font-semibold px-3 py-2">
+    <div className="fixed top-0 left-0 right-0 z-[60] bg-amber-500 text-amber-950 text-center text-sm font-semibold px-3 py-2.5 pt-[max(0.5rem,env(safe-area-inset-top))] leading-snug shadow-md">
       {t(
         'Offline mode is active. Backend sync is temporarily disabled.',
         'ಆಫ್ಲೈನ್ ಮೋಡ್ ಸಕ್ರಿಯವಾಗಿದೆ. ಬ್ಯಾಕ್‌ಎಂಡ್ ಸಿಂಕ್ ತಾತ್ಕಾಲಿಕವಾಗಿ ನಿಷ್ಕ್ರಿಯಗೊಂಡಿದೆ.'

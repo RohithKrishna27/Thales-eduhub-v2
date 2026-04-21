@@ -294,39 +294,40 @@ const TeacherDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+    <div className="min-h-[100dvh] bg-gradient-to-br from-indigo-50 via-white to-purple-50 pb-[max(1rem,env(safe-area-inset-bottom))]">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-sm shadow-lg border-b border-indigo-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-3">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap justify-between items-center gap-y-3 py-3 min-h-14 sm:h-16 sm:py-0">
+            <div className="flex items-center gap-2 sm:space-x-3 min-w-0 flex-1 basis-full sm:basis-auto sm:flex-initial">
               <div className="h-8 w-8 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
                 <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
                 </svg>
               </div>
-              <h1 className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              <h1 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent truncate">
                 EduHub Teacher
               </h1>
             </div>
-            <div className="flex items-center space-x-4">
-              <LanguageSwitcher />
-              <div className="flex items-center space-x-3 bg-white/60 backdrop-blur-sm rounded-full px-4 py-2 shadow-sm border border-indigo-100">
+            <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto justify-stretch sm:justify-end">
+              <LanguageSwitcher className="grow sm:grow-0 min-w-[10rem]" />
+              <div className="flex items-center gap-2 sm:space-x-3 bg-white/60 backdrop-blur-sm rounded-full px-3 sm:px-4 py-2 shadow-sm border border-indigo-100 min-w-0 flex-1 sm:flex-initial">
                 {user?.photoURL ? (
                   <img
-                    className="h-10 w-10 rounded-full border-2 border-indigo-200"
+                    className="h-9 w-9 sm:h-10 sm:w-10 rounded-full border-2 border-indigo-200 shrink-0"
                     src={user.photoURL}
                     alt="Profile"
                   />
                 ) : (
                   generateAvatar(teacherData?.name || userProfile?.name)
                 )}
-                <span className="text-sm font-semibold text-gray-700">{teacherData?.name || userProfile?.name}</span>
+                <span className="text-xs sm:text-sm font-semibold text-gray-700 truncate">{teacherData?.name || userProfile?.name}</span>
               </div>
               <button
+                type="button"
                 onClick={logout}
-                className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-6 py-2 rounded-full text-sm font-semibold hover:from-red-600 hover:to-pink-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                className="min-h-11 flex-1 sm:flex-initial bg-gradient-to-r from-red-500 to-pink-500 text-white px-5 sm:px-6 py-2.5 rounded-full text-sm font-semibold hover:from-red-600 hover:to-pink-600 transition-all duration-300 shadow-lg sm:hover:shadow-xl sm:hover:scale-105 touch-manipulation active:opacity-95"
               >
                 {t('Logout', 'ಲಾಗ್ ಔಟ್')}
               </button>
@@ -336,9 +337,9 @@ const TeacherDashboard = () => {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto py-8 sm:px-6 lg:px-8">
+      <main className="max-w-7xl mx-auto py-6 sm:py-8 px-3 sm:px-6 lg:px-8">
         {/* Welcome Section */}
-      <div className="px-4 py-6 sm:px-0">
+      <div className="py-4 sm:py-6 sm:px-0">
   <div className="relative overflow-hidden bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 rounded-3xl shadow-2xl">
     {/* Animated Background Elements */}
     <div className="absolute inset-0">
@@ -360,7 +361,7 @@ const TeacherDashboard = () => {
       </svg>
     </div>
 
-    <div className="relative px-8 py-10 sm:px-12 sm:py-12">
+    <div className="relative px-4 py-8 sm:px-12 sm:py-12">
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
         {/* Left Section - Welcome Message */}
         <div className="flex-1 mb-8 lg:mb-0 lg:mr-8">
@@ -371,7 +372,7 @@ const TeacherDashboard = () => {
               </svg>
             </div>
             <div>
-              <h1 className="text-4xl font-bold text-white mb-2">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2 leading-tight break-words">
                 {t('Welcome back,', 'ಮತ್ತೊಮ್ಮೆ ಸ್ವಾಗತ,')} {teacherData?.name || userProfile?.name}! 
                 {/* <span className="ml-2 animate-bounce inline-block">🎓</span> */}
               </h1>

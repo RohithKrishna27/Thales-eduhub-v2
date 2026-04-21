@@ -71,7 +71,7 @@ const ProtectedRoute = ({ children, requiresAuth = true, requiresRole = null, re
   // Show a loading spinner while authentication state is being determined
   if (loading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="min-h-[100dvh] bg-black flex items-center justify-center px-4">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">{t('Loading...', 'ಲೋಡ್ ಆಗುತ್ತಿದೆ...')}</p>
@@ -142,6 +142,7 @@ const AppContent = () => {
       <DebugAuthState />
       {user && userProfile && !loading && <ThalesTopBar />}
 
+      <div className={isOnline ? '' : 'pt-12 sm:pt-11'}>
       <Routes>
         {/* Public Routes */}
         {/* If user is logged in, redirect from login to dashboard */}
@@ -219,7 +220,7 @@ const AppContent = () => {
                 <TeacherDashboard /> // ProtectedRoute ensures userRole is "teacher"
               ) : (
                 // Fallback for unexpected role state, though ProtectedRoute should handle most cases
-                <div className="min-h-screen bg-black flex items-center justify-center">
+                <div className="min-h-[100dvh] bg-black flex items-center justify-center px-4">
                   <div className="text-center text-white">
                     <h2 className="text-xl mb-4">Invalid Role or Role Not Set</h2>
                     <p>{t('Current Role:', 'ಪ್ರಸ್ತುತ ಪಾತ್ರ:')} {userRole || 'N/A'}</p>
@@ -487,7 +488,7 @@ const AppContent = () => {
           path="/"
           element={
             loading ? (
-              <div className="min-h-screen bg-black flex items-center justify-center">
+              <div className="min-h-[100dvh] bg-black flex items-center justify-center px-4">
                 <div className="text-center">
                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
                   <p className="mt-4 text-gray-600">{t('Loading...', 'ಲೋಡ್ ಆಗುತ್ತಿದೆ...')}</p>
@@ -515,7 +516,7 @@ const AppContent = () => {
         <Route
           path="*"
           element={
-            <div className="min-h-screen bg-black flex items-center justify-center">
+            <div className="min-h-[100dvh] bg-black flex items-center justify-center px-4">
               <div className="text-center text-white">
                 <h2 className="text-xl mb-4">Page Not Found</h2>
                 <button
@@ -529,6 +530,7 @@ const AppContent = () => {
           }
         />
       </Routes>
+      </div>
     </>
   );
 };

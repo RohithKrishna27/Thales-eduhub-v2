@@ -25,7 +25,7 @@ const OfflineStudentHome = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 p-4 sm:p-8 font-sans">
+    <div className="min-h-[100dvh] bg-white text-slate-900 p-3 sm:p-8 font-sans pb-[max(1rem,env(safe-area-inset-bottom))]">
       <div className="mx-auto max-w-4xl">
         
         {/* Top Navigation Bar */}
@@ -67,10 +67,10 @@ const OfflineStudentHome = () => {
               {t('Offline Mode Enabled', 'ಆಫ್‌ಲೈನ್ ಮೋಡ್ ಸಕ್ರಿಯವಾಗಿದೆ')}
             </span>
           </div>
-          <h1 className="text-4xl font-black tracking-tight text-slate-900 mb-3">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-slate-900 mb-3 leading-tight">
             {t('Student Dashboard', 'ವಿದ್ಯಾರ್ಥಿ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್')}
           </h1>
-          <p className="text-slate-500 max-w-2xl text-lg">
+          <p className="text-slate-500 max-w-2xl text-base sm:text-lg leading-relaxed">
             {t(
               'Select an experiment to begin practicing. No internet required.',
               'ಅಭ್ಯಾಸ ಮಾಡಲು ಒಂದು ಪ್ರಯೋಗವನ್ನು ಆಯ್ಕೆಮಾಡಿ. ಇಂಟರ್ನೆಟ್ ಅಗತ್ಯವಿಲ್ಲ.'
@@ -104,10 +104,12 @@ const OfflineStudentHome = () => {
 
         {/* Thales Hub Mode Section */}
         <section className="mt-16 mb-12">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="h-2 w-2 rounded-full bg-blue-600"></div>
-            <h2 className="text-3xl font-black text-slate-900">{t('Thales Professional Hub', 'ಥೇಲ್ಸ್ ವೃತ್ತಿಪರ ಹಬ್')}</h2>
-            <div className="flex-grow h-[1px] bg-slate-200"></div>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="h-2 w-2 rounded-full bg-blue-600 shrink-0"></div>
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 leading-tight">{t('Thales Professional Hub', 'ಥೇಲ್ಸ್ ವೃತ್ತಿಪರ ಹಬ್')}</h2>
+            </div>
+            <div className="hidden sm:block flex-grow h-[1px] bg-slate-200 min-w-[2rem]"></div>
           </div>
           <p className="text-slate-600 mb-6 max-w-3xl font-semibold">
             {t('Advanced aerospace and cybersecurity training modules. Interactive simulations optimized for offline practice.', 'ಉನ್ನತ ವೈಮಾನಿಕ ಮತ್ತು ಸೈಬರ್ ತರಬೇತಿ ಮಾಡ್ಯೂಲ್‌ಗಳು. ಆಫ್‌ಲೈನ್ ಅಭ್ಯಾಸಕ್ಕೆ ಉತ್ತಮ.')}
