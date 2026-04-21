@@ -119,8 +119,8 @@
 </div>
 
 <script>
-// Empty string for environment runtime injection
-const apiKey = ""; 
+// API Key from environment variable (set in .env or Netlify environment)
+const apiKey = window.__GEMINI_API_KEY__ || ""; 
 // Updated to gemini-flash-latest as per the curl request
 const TEXT_MODEL = "gemini-flash-latest"; 
 const TTS_MODEL = "gemini-2.5-flash-preview-tts";
